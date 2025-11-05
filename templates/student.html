@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ student.name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-5px);
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .profile-header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .profile-content {
+            padding: 50px 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .info-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-value {
+            font-size: 1.15em;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .skills-section {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid #f0f0f0;
+            margin-bottom: 40px;
+        }
+        
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .skill-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .skill-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .bio-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 5px solid #764ba2;
+            margin-bottom: 40px;
+        }
+        
+        .bio-section p {
+            color: #555;
+            line-height: 1.9;
+            font-size: 1.1em;
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+        
+        .contact-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .contact-value {
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #09d54a 0%, #05a838 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(9, 213, 74, 0.3);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-button">
+            ⬅ Retour à l'annuaire
+        </a>
+        
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="{{ student.photo }}" alt="{{ student.name }}" class="profile-image">
+                <h1>{{ student.name }}</h1>
+                <span class="badge">{{ student.year }}</span>
+            </div>
+            
+            <div class="profile-content">
+                <!-- Section Contact -->
+                <h2 class="section-title">📞 Contact</h2>
+                <div class="contact-section">
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-label">📧 Email</div>
+                            <div class="contact-value">{{ student.email }}</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-label">📱 Téléphone</div>
+                            <div class="contact-value">{{ student.phone }}</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-label">📍 Ville</div>
+                            <div class="contact-value">{{ student.city }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section Statistiques -->
+                <h2 class="section-title">📊 Informations</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ student.age }}</div>
+                        <div class="stat-label">Ans</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ student.skills|length }}</div>
+                        <div class="stat-label">Compétences</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">M2</div>
+                        <div class="stat-label">Niveau</div>
+                    </div>
+                </div>
+                
+                <!-- Section Informations détaillées -->
+                <h2 class="section-title">👤 Profil</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">📚 Filière</div>
+                        <div class="info-value">{{ student.major }}</div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">🎓 Année</div>
+                        <div class="info-value">{{ student.year }}</div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">🌍 Nationalité</div>
+                        <div class="info-value">{{ student.nationality }}</div>
+                    </div>
+                </div>
+                
+                <!-- Section Compétences -->
+                <h2 class="section-title">💼 Compétences techniques</h2>
+                <div class="skills-section">
+                    <div class="skills-grid">
+                        {% for skill in student.skills %}
+                        <span class="skill-badge">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Section Bio -->
+                <h2 class="section-title">📝 À propos</h2>
+                <div class="bio-section">
+                    <p>{{ student.bio }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

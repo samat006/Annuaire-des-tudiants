@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Annuaire Étudiants</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #59793a 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .grid { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        .card { 
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .card-image {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        
+        img { 
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .card-info {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #045541 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Annuaire des Étudiants M2</h1>
+            <p class="subtitle">Découvrez les profils de nos étudiants</p>
+        </header>
+
+        <div class="grid">
+            {% for s in students %}
+            <a class="card" href="/student/{{ s.id }}">
+                <div class="card-image">
+                    <img src="{{ s.photo }}" alt="{{ s.name }}">
+                </div>
+                <div class="card-content">
+                    <h3>{{ s.name }}</h3>
+                    <p class="card-info">{{ s.major }}</p>
+                    <span class="badge">{{ s.year }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
